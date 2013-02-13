@@ -7,13 +7,14 @@ See an example usage below.
 import pyfatcache
 
 conn = get_conn()
-print "expect None / get %s" % (conn.get("a"),)
-conn.set("a", "a")
-print "expect a / get %s" % (conn.get("a"),)
+conn.delete("a")
+print "expect (None, None) / get %s" % (str(conn.get("a")),)
+conn.set("a", "a", flags=1)
+print "expect ('a', 1) / get %s" % (str(conn.get("a")),)
 conn.set("a", dict(name="pyfatcache"))
-print "expect {'name': 'pyfatcache'} / get %s" % (conn.get("a"),)
+print "expect ({'name': 'pyfatcache'}, 0) / get %s" % (str(conn.get("a")),)
 conn.set("a", None)
-print "expect None / get %s" % (conn.get("a"),)
+print "expect (None, 0) / get %s" % (str(conn.get("a")),)
 conn.close()
 ```
 
