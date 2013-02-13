@@ -87,6 +87,8 @@ if __name__ == "__main__":
     print "expect None / get %s" % (conn.get("a"),)
     conn.set("a", "a")
     print "expect a / get %s" % (conn.get("a"),)
+    conn.set("a", dict(name="pyfatcache"))
+    print "expect {'name': 'pyfatcache'} / get %s" % (conn.get("a"))
     conn.set("a", None)
     print "expect None / get %s" % (conn.get("a"),)
     conn.close()
