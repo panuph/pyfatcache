@@ -24,3 +24,5 @@ python -m pyfatcache
 </pre>
 
 For detailed information, see pyfatcache.py directly.
+
+All information about twitter fatcache is available [here](https://github.com/twitter/fatcache)
