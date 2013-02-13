@@ -1,6 +1,9 @@
 import re
 import socket
-import simplejson as json
+try:
+    import simplejson as json
+except:
+    import json
 
 class Client(object):
     """A client for fatcache server. This client covers only simple usage
