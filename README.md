@@ -1,5 +1,5 @@
-pyfatcache: a simple python client for fatcache
-=============================================== 
+pyfatcache: a simple python client for twitter fatcache
+======================================================= 
 
 See an example usage below.
 
@@ -25,4 +25,4 @@ python -m pyfatcache
 
 For detailed information, see pyfatcache.py directly.
 
-All information about twitter fatcache is available [here](https://github.com/twitter/fatcache)
+All information about twitter's fatcache is available [here](https://github.com/twitter/fatcache)
