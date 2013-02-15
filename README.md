@@ -28,6 +28,6 @@ For detailed information, see pyfatcache.py directly.
 
 All information about twitter's fatcache is available [here](https://github.com/twitter/fatcache)
 
-The library does not do much, as thish all that I need currently. If you need
-other features, please feel free to raise an issue or, even better, implement
-it and submit a pull request -- always welcome :-)
+The library does not do much, as this is all that I need currently. If you need
+other features, please feel free to raise issues or, even better, implement
+them yourselves and submit pull requests, which are always welcome :-)
