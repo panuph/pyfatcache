@@ -119,7 +119,14 @@ class JsonClient(Client):
         return (None if value is None else json.loads(value), flags) 
 
 def get_conn(host="localhost", port=11211, json=True):
-    """Factory method."""
+    """Factory method (function) returning a new connection to fatcache server.
+    host: str
+        the fatcache host
+    port: int
+        the faatcache port
+    json: boolean
+        whether to use JsonClient (True by default and recommended)
+    """
     return JsonClient(host, port) if json else Client(host, port)
 
 if __name__ == "__main__":
