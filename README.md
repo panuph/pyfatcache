@@ -6,7 +6,7 @@ See an example usage below.
 ```python
 import pyfatcache
 
-conn = get_conn()   # for specific server use get_conn(host=XXXX, port=YYYY)
+conn = pyfatcache.get_conn()   # for specific server use get_conn(host=XXXX, port=YYYY)
 conn.delete("a")
 print "expect (None, None) / get %s" % (str(conn.get("a")),)
 conn.set("a", "a", flags=1)
