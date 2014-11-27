@@ -14,6 +14,7 @@ class Client(object):
 
     GET_RES_1 = re.compile(r"^(END)\r\n$")
     GET_RES_2 = re.compile(r"^(VALUE)\s(.+)\s(\d+)\s\d+\r\n(.*)\r\nEND\r\n$")
+    GET_RES_3 = re.compile(r"^(NOT_FOUND)\r\n$")
 
     DELETE_RES_1 = re.compile(r"^NOT_FOUND\r\n$")
     DELETE_RES_2 = re.compile(r"^DELETED\r\n$")
@@ -79,8 +80,8 @@ class Client(object):
         self.socket.settimeout(timeout)
         packet = "get %s\r\n" % (key,)
         self.socket.sendall(packet)
-        res, m = self._recv_until_match(Client.GET_RES_1, Client.GET_RES_2)
-        if m.group(1) == "END":
+        res, m = self._recv_until_match(Client.GET_RES_1, Client.GET_RES_2, Client.GET_RES_3)
+        if m.group(1) == "END" or m.group(1) == "NOT_FOUND":
             return (None, None)
         else:
             if m.group(2) == key:   # double check the key again
