@@ -5,6 +5,7 @@ try:
 except:
     import json
 
+
 class Client(object):
     """A client for fatcache server. This client covers only simple usage
     scenarios."""
@@ -30,9 +31,9 @@ class Client(object):
         self.socket.connect((host, port))
 
     def _recv_until_match(self, *patterns):
-        """Keeps receiving the data from the server until they match one of the 
+        """Keeps receiving the data from the server until they match one of the
         patterns (defined as class variables); returns the response from the
-        server and the corresponding match object, i.e. re.MatchObject. Raises 
+        server and the corresponding match object, i.e. re.MatchObject. Raises
         an exception if an error occurs."""
         so_far = ""
         while True:
@@ -62,7 +63,7 @@ class Client(object):
             the socket timeout in seconds (None = no timeout)
         """
         self.socket.settimeout(timeout)
-        packet = "set %s %d %d %d\r\n%s\r\n" % (key, flags, expiry, 
+        packet = "set %s %d %d %d\r\n%s\r\n" % (key, flags, expiry,
             len(value), value)
         self.socket.sendall(packet)
         res, m = self._recv_until_match(Client.SET_RES_1, Client.SET_RES_2)
@@ -70,7 +71,7 @@ class Client(object):
             raise Exception("set", key, value, flags, expiry, res)
 
     def get(self, key, timeout=None):
-        """Returns a tuple of value and data specific client flags, i.e. 
+        """Returns a tuple of value and data specific client flags, i.e.
         (str, int) of the key or (None, None) if not found.
         key: str
             the key of the value to get
@@ -106,18 +107,20 @@ class Client(object):
         """Closes the client socket."""
         self.socket.close()
 
+
 class JsonClient(Client):
     """Similar to Client, but treating the value in JSON format."""
 
     def set(self, key, value, flags=0, expiry=0, timeout=None):
         """See method set() in class Client."""
-        return super(JsonClient, self).set(key, json.dumps(value), 
+        return super(JsonClient, self).set(key, json.dumps(value),
             flags=flags, expiry=expiry, timeout=timeout)
 
     def get(self, key, timeout=None):
         """See method get() in class Client."""
         value, flags = super(JsonClient, self).get(key, timeout=timeout)
-        return (None if value is None else json.loads(value), flags) 
+        return (None if value is None else json.loads(value), flags)
+
 
 def get_conn(host="localhost", port=11211, json=True):
     """Factory method (function) returning a new connection to fatcache server.
@@ -129,6 +132,7 @@ def get_conn(host="localhost", port=11211, json=True):
         whether to use JsonClient (True by default and recommended)
     """
     return JsonClient(host, port) if json else Client(host, port)
+
 
 if __name__ == "__main__":
     """Example usage -- python -m pyfatcache"""
